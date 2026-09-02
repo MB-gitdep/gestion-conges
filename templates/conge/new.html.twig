@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% block title %}Nouvelle demande de congé{% endblock %}
+{% block body %}
+<h1 class="h3 mb-3">Nouvelle demande de congé</h1>
+{{ form_start(form) }}
+    {{ form_row(form.typeConge) }}
+    {{ form_row(form.dateDebut) }}
+    {{ form_row(form.dateFin) }}
+    {{ form_row(form.commentaire) }}
+    <button class="btn btn-primary" type="submit">Envoyer la demande</button>
+{{ form_end(form) }}
+{% endblock %}

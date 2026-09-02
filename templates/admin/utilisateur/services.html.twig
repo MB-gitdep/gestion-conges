@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+{% block title %}Services de l'utilisateur{% endblock %}
+{% block body %}
+<h1 class="h3 mb-3">Services de {{ utilisateur }}</h1>
+
+<table class="table">
+    <thead><tr><th>Service</th><th>Responsable</th><th></th></tr></thead>
+    <tbody>
+    {% for affectation in utilisateur.utilisateurServices %}
+        <tr>
+            <td>{{ affectation.service.nom }}</td>
+            <td>{{ affectation.estResponsable ? 'Oui' : 'Non' }}</td>
+            <td>
+                <form method="post" action="{{ path('admin_utilisateur_service_retirer', {id: affectation.id}) }}" onsubmit="return confirm('Retirer cette affectation ?')">
+                    <input type="hidden" name="_token" value="{{ csrf_token('retirer' ~ affectation.id) }}">
+                    <button class="btn btn-link text-danger p-0" type="submit">Retirer</button>
+                </form>
+            </td>
+        </tr>
+    {% else %}
+        <tr><td colspan="3" class="text-muted">Aucune affectation.</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<h2 class="h5 mt-4">Ajouter une affectation</h2>
+{{ form_start(form) }}
+    {{ form_row(form.service) }}
+    {{ form_row(form.estResponsable) }}
+    <button class="btn btn-primary" type="submit">Affecter</button>
+{{ form_end(form) }}
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% block title %}Changer mon mot de passe{% endblock %}
+{% block body %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h1 class="h3 mb-3">Changer mon mot de passe</h1>
+
+        {% if premiereConnexion %}
+            <div class="alert alert-warning">
+                Vous devez définir votre propre mot de passe avant de continuer.
+            </div>
+        {% endif %}
+
+        <ul class="text-muted small mb-3">
+            <li>12 caractères minimum</li>
+            <li>Au moins une majuscule, une minuscule, un chiffre et un caractère spécial</li>
+            <li>Ne doit pas être un mot de passe déjà connu comme compromis</li>
+        </ul>
+
+        {{ form_start(form) }}
+            {{ form_row(form.motDePasseActuel) }}
+            {{ form_row(form.nouveauMotDePasse) }}
+            <button class="btn btn-primary" type="submit">Mettre à jour</button>
+        {{ form_end(form) }}
+    </div>
+</div>
+{% endblock %}

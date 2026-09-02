@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+{% block title %}Mes congés{% endblock %}
+{% block body %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3">Mes congés</h1>
+    <a href="{{ path('conge_new') }}" class="btn btn-primary">Nouvelle demande</a>
+</div>
+
+<h2 class="h5">Mes soldes</h2>
+<table class="table table-sm mb-4">
+    <thead><tr><th>Type</th><th>Année</th><th>Jours restants</th></tr></thead>
+    <tbody>
+    {% for solde in soldes %}
+        <tr>
+            <td>{{ solde.typeConge.nom }}</td>
+            <td>{{ solde.annee }}</td>
+            <td>{{ solde.joursRestants }}</td>
+        </tr>
+    {% else %}
+        <tr><td colspan="3" class="text-muted">Aucun solde renseigné.</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<h2 class="h5">Historique de mes demandes</h2>
+<table class="table">
+    <thead><tr><th>Type</th><th>Période</th><th>Statut</th><th></th></tr></thead>
+    <tbody>
+    {% for conge in conges %}
+        <tr>
+            <td>{{ conge.typeConge.nom }}</td>
+            <td>{{ conge.dateDebut|date('d/m/Y') }} — {{ conge.dateFin|date('d/m/Y') }}</td>
+            <td>
+                <span class="badge bg-{{ conge.statut == 'valide' ? 'success' : (conge.statut == 'refuse' ? 'danger' : 'warning') }}">
+                    {{ conge.statut }}
+                </span>
+            </td>
+            <td><a href="{{ path('conge_show', {id: conge.id}) }}">Détail</a></td>
+        </tr>
+    {% else %}
+        <tr><td colspan="4" class="text-muted">Aucune demande.</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

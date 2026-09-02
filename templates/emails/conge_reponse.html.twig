@@ -1,0 +1,16 @@
+<p>Bonjour {{ conge.utilisateur.prenom }},</p>
+
+<p>
+    Votre demande de congé du {{ conge.dateDebut|date('d/m/Y') }} au {{ conge.dateFin|date('d/m/Y') }}
+    ({{ conge.typeConge.nom }}) a été
+    <strong>{{ conge.statut == 'valide' ? 'validée' : 'refusée' }}</strong>
+    {% if conge.validateur %}par {{ conge.validateur }}{% endif %}.
+</p>
+
+{% if conge.commentaire %}
+    <p>Commentaire : {{ conge.commentaire }}</p>
+{% endif %}
+
+<p>
+    <a href="{{ url('conge_index') }}">Consulter mes demandes</a>
+</p>

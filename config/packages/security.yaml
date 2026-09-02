@@ -1,0 +1,52 @@
+security:
+    password_hashers:
+        App\Entity\Utilisateur:
+            algorithm: auto
+            cost: 13 # coût bcrypt/argon renforcé (défaut 10-12) — dosage sécurité/performance
+
+    providers:
+        app_user_provider:
+            entity:
+                class: App\Entity\Utilisateur
+                property: email
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            lazy: true
+            provider: app_user_provider
+            form_login:
+                login_path: app_login
+                check_path: app_login
+                enable_csrf: true
+                default_target_path: conge_index
+            logout:
+                path: app_logout
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 604800
+                secure: true
+                httponly: true
+                samesite: lax
+            login_throttling:
+                # Bloque les tentatives de connexion après 5 essais / minute
+                # par combinaison IP+utilisateur, protection anti-bruteforce native
+                max_attempts: 5
+                interval: '1 minute'
+
+    role_hierarchy:
+        ROLE_RESPONSABLE: ROLE_USER
+        ROLE_RH: ROLE_RESPONSABLE
+        ROLE_ADMIN: ROLE_RH
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
+
+    access_control:
+        - { path: ^/login, roles: PUBLIC_ACCESS }
+        - { path: ^/admin, roles: ROLE_RH }
+        - { path: ^/responsable, roles: ROLE_RESPONSABLE }
+        - { path: ^/mes-demandes, roles: ROLE_USER }
+
+    access_decision_manager:
+        strategy: unanimous # tous les voters doivent accepter (aucun refus toléré)

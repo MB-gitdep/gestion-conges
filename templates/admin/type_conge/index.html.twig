@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+{% block title %}Types de congés{% endblock %}
+{% block body %}
+<div class="row">
+    <div class="col-md-3">{% include 'admin/_menu.html.twig' %}</div>
+    <div class="col-md-9">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h1 class="h3">Types de congés</h1>
+            <a href="{{ path('admin_type_conge_new') }}" class="btn btn-primary">Nouveau type</a>
+        </div>
+        <table class="table">
+            <thead><tr><th>Nom</th><th>Jours par défaut</th><th></th></tr></thead>
+            <tbody>
+            {% for type in types %}
+                <tr>
+                    <td>{{ type.nom }}</td>
+                    <td>{{ type.joursDefaut ?? '—' }}</td>
+                    <td>
+                        <a href="{{ path('admin_type_conge_edit', {id: type.id}) }}">Modifier</a>
+                        <form method="post" action="{{ path('admin_type_conge_delete', {id: type.id}) }}" class="d-inline" onsubmit="return confirm('Supprimer ce type ?')">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ type.id) }}">
+                            <button class="btn btn-link text-danger p-0 ms-2" type="submit">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr><td colspan="3" class="text-muted">Aucun type.</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

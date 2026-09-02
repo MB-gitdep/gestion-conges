@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% block title %}Ajuster le solde{% endblock %}
+{% block body %}
+<h1 class="h3 mb-3">Ajuster le solde de {{ solde.utilisateur }}</h1>
+{{ form_start(form) }}
+    {{ form_row(form.utilisateur) }}
+    {{ form_row(form.typeConge) }}
+    {{ form_row(form.annee) }}
+    {{ form_row(form.joursRestants) }}
+    <button class="btn btn-primary" type="submit">Enregistrer</button>
+{{ form_end(form) }}
+{% endblock %}

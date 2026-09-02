@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{% block title %}Traiter la demande{% endblock %}
+{% block body %}
+<h1 class="h3 mb-3">Demande de {{ conge.utilisateur }}</h1>
+{{ form_start(form) }}
+    {{ form_row(form.decision) }}
+    {{ form_row(form.commentaire) }}
+    <button class="btn btn-primary" type="submit">Valider ma décision</button>
+{{ form_end(form) }}
+{% endblock %}

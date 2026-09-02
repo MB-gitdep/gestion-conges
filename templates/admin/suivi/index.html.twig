@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+{% block title %}Suivi / audit{% endblock %}
+{% block body %}
+<div class="row">
+    <div class="col-md-3">{% include 'admin/_menu.html.twig' %}</div>
+    <div class="col-md-9">
+        <h1 class="h3 mb-3">Suivi des décisions</h1>
+        <table class="table">
+            <thead><tr><th>Date</th><th>Congé (demandeur)</th><th>Action par</th><th>Ancien statut</th><th>Nouveau statut</th></tr></thead>
+            <tbody>
+            {% for h in historiques %}
+                <tr>
+                    <td>{{ h.dateAction|date('d/m/Y H:i') }}</td>
+                    <td>{{ h.conge.utilisateur }}</td>
+                    <td>{{ h.utilisateur }}</td>
+                    <td>{{ h.ancienStatut }}</td>
+                    <td>{{ h.nouveauStatut }}</td>
+                </tr>
+            {% else %}
+                <tr><td colspan="5" class="text-muted">Aucun historique.</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

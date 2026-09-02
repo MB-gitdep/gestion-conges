@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block title %}Soldes de congés{% endblock %}
+{% block body %}
+<div class="row">
+    <div class="col-md-3">{% include 'admin/_menu.html.twig' %}</div>
+    <div class="col-md-9">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h1 class="h3">Soldes de congés</h1>
+            <a href="{{ path('admin_solde_new') }}" class="btn btn-primary">Nouveau solde</a>
+        </div>
+        <table class="table">
+            <thead><tr><th>Utilisateur</th><th>Type</th><th>Année</th><th>Jours restants</th><th></th></tr></thead>
+            <tbody>
+            {% for solde in soldes %}
+                <tr>
+                    <td>{{ solde.utilisateur }}</td>
+                    <td>{{ solde.typeConge.nom }}</td>
+                    <td>{{ solde.annee }}</td>
+                    <td>{{ solde.joursRestants }}</td>
+                    <td><a href="{{ path('admin_solde_edit', {id: solde.id}) }}">Ajuster</a></td>
+                </tr>
+            {% else %}
+                <tr><td colspan="5" class="text-muted">Aucun solde.</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

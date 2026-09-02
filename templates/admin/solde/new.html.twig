@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% block title %}Nouveau solde{% endblock %}
+{% block body %}
+<h1 class="h3 mb-3">Nouveau solde</h1>
+{{ form_start(form) }}
+    {{ form_row(form.utilisateur) }}
+    {{ form_row(form.typeConge) }}
+    {{ form_row(form.annee) }}
+    {{ form_row(form.joursRestants) }}
+    <button class="btn btn-primary" type="submit">Créer</button>
+{{ form_end(form) }}
+{% endblock %}

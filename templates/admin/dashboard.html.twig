@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+{% block title %}Administration{% endblock %}
+{% block body %}
+<div class="row">
+    <div class="col-md-3">{% include 'admin/_menu.html.twig' %}</div>
+    <div class="col-md-9">
+        <h1 class="h3 mb-3">Tableau de bord</h1>
+        <div class="row g-3 mb-4">
+            <div class="col-md-4">
+                <div class="card"><div class="card-body">
+                    <div class="fs-2">{{ nbUtilisateurs }}</div>
+                    <div class="text-muted">Utilisateurs</div>
+                </div></div>
+            </div>
+            <div class="col-md-4">
+                <div class="card"><div class="card-body">
+                    <div class="fs-2">{{ nbServices }}</div>
+                    <div class="text-muted">Services</div>
+                </div></div>
+            </div>
+            <div class="col-md-4">
+                <div class="card"><div class="card-body">
+                    <div class="fs-2">{{ demandesEnAttente|length }}</div>
+                    <div class="text-muted">Demandes en attente</div>
+                </div></div>
+            </div>
+        </div>
+
+        <h2 class="h5">Demandes en attente</h2>
+        <table class="table">
+            <thead><tr><th>Demandeur</th><th>Type</th><th>Période</th></tr></thead>
+            <tbody>
+            {% for conge in demandesEnAttente %}
+                <tr>
+                    <td>{{ conge.utilisateur }}</td>
+                    <td>{{ conge.typeConge.nom }}</td>
+                    <td>{{ conge.dateDebut|date('d/m/Y') }} — {{ conge.dateFin|date('d/m/Y') }}</td>
+                </tr>
+            {% else %}
+                <tr><td colspan="3" class="text-muted">Aucune.</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

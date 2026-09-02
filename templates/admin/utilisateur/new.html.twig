@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% block title %}Nouvel utilisateur{% endblock %}
+{% block body %}
+<h1 class="h3 mb-3">Nouvel utilisateur</h1>
+<p class="text-muted">Un mot de passe temporaire sera généré ; l'utilisateur devra le réinitialiser à sa première connexion.</p>
+{{ form_start(form) }}
+    {{ form_row(form.nom) }}
+    {{ form_row(form.prenom) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.roles) }}
+    {{ form_row(form.dateEntree) }}
+    {{ form_row(form.statut) }}
+    <button class="btn btn-primary" type="submit">Créer</button>
+{{ form_end(form) }}
+{% endblock %}

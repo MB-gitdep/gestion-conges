@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+{% block title %}Services{% endblock %}
+{% block body %}
+<div class="row">
+    <div class="col-md-3">{% include 'admin/_menu.html.twig' %}</div>
+    <div class="col-md-9">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h1 class="h3">Services</h1>
+            <a href="{{ path('admin_service_new') }}" class="btn btn-primary">Nouveau service</a>
+        </div>
+        <table class="table">
+            <thead><tr><th>Nom</th><th>Entreprise</th><th></th></tr></thead>
+            <tbody>
+            {% for service in services %}
+                <tr>
+                    <td>{{ service.nom }}</td>
+                    <td>{{ service.entreprise }}</td>
+                    <td>
+                        <a href="{{ path('admin_service_edit', {id: service.id}) }}">Modifier</a>
+                        <form method="post" action="{{ path('admin_service_delete', {id: service.id}) }}" class="d-inline" onsubmit="return confirm('Supprimer ce service ?')">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ service.id) }}">
+                            <button class="btn btn-link text-danger p-0 ms-2" type="submit">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr><td colspan="3" class="text-muted">Aucun service.</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

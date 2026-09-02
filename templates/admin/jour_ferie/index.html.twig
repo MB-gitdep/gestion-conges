@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+{% block title %}Calendrier{% endblock %}
+{% block body %}
+<div class="row">
+    <div class="col-md-3">{% include 'admin/_menu.html.twig' %}</div>
+    <div class="col-md-9">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h1 class="h3">Jours fériés</h1>
+            <a href="{{ path('admin_jour_ferie_new') }}" class="btn btn-primary">Ajouter un jour férié</a>
+        </div>
+        <table class="table">
+            <thead><tr><th>Date</th><th>Libellé</th><th>Entreprise</th><th></th></tr></thead>
+            <tbody>
+            {% for jour in joursFeries %}
+                <tr>
+                    <td>{{ jour.date|date('d/m/Y') }}</td>
+                    <td>{{ jour.libelle }}</td>
+                    <td>{{ jour.entreprise }}</td>
+                    <td>
+                        <form method="post" action="{{ path('admin_jour_ferie_delete', {id: jour.id}) }}" onsubmit="return confirm('Supprimer ?')">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ jour.id) }}">
+                            <button class="btn btn-link text-danger p-0" type="submit">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr><td colspan="4" class="text-muted">Aucun jour férié renseigné.</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

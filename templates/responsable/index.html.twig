@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+{% block title %}Demandes à traiter{% endblock %}
+{% block body %}
+<h1 class="h3 mb-3">Demandes en attente de mon équipe</h1>
+<table class="table">
+    <thead><tr><th>Demandeur</th><th>Type</th><th>Période</th><th>Commentaire</th><th></th></tr></thead>
+    <tbody>
+    {% for conge in conges %}
+        <tr>
+            <td>{{ conge.utilisateur }}</td>
+            <td>{{ conge.typeConge.nom }}</td>
+            <td>{{ conge.dateDebut|date('d/m/Y') }} — {{ conge.dateFin|date('d/m/Y') }}</td>
+            <td>{{ conge.commentaire|default('—') }}</td>
+            <td><a href="{{ path('responsable_repondre', {id: conge.id}) }}" class="btn btn-sm btn-primary">Répondre</a></td>
+        </tr>
+    {% else %}
+        <tr><td colspan="5" class="text-muted">Aucune demande en attente.</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

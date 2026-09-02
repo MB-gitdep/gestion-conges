@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{% block title %}Nouveau type de congé{% endblock %}
+{% block body %}
+<h1 class="h3 mb-3">Nouveau type de congé</h1>
+{{ form_start(form) }}
+    {{ form_row(form.nom) }}
+    {{ form_row(form.joursDefaut) }}
+    <button class="btn btn-primary" type="submit">Créer</button>
+{{ form_end(form) }}
+{% endblock %}

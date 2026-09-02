@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+{% block title %}Utilisateurs{% endblock %}
+{% block body %}
+<div class="row">
+    <div class="col-md-3">{% include 'admin/_menu.html.twig' %}</div>
+    <div class="col-md-9">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h1 class="h3">Utilisateurs</h1>
+            <a href="{{ path('admin_utilisateur_new') }}" class="btn btn-primary">Nouvel utilisateur</a>
+        </div>
+        <table class="table">
+            <thead><tr><th>Nom</th><th>Email</th><th>Rôles</th><th>Statut</th><th></th></tr></thead>
+            <tbody>
+            {% for utilisateur in utilisateurs %}
+                <tr>
+                    <td>{{ utilisateur }}</td>
+                    <td>{{ utilisateur.email }}</td>
+                    <td>{{ utilisateur.roles|join(', ') }}</td>
+                    <td>
+                        <span class="badge bg-{{ utilisateur.statut == 'actif' ? 'success' : 'secondary' }}">
+                            {{ utilisateur.statut }}
+                        </span>
+                    </td>
+                    <td>
+                        <a href="{{ path('admin_utilisateur_edit', {id: utilisateur.id}) }}">Modifier</a>
+                        <a href="{{ path('admin_utilisateur_services', {id: utilisateur.id}) }}" class="ms-2">Services</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr><td colspan="5" class="text-muted">Aucun utilisateur.</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

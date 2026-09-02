@@ -1,0 +1,17 @@
+<p>Bonjour {{ responsable.prenom }},</p>
+
+<p>
+    <strong>{{ conge.utilisateur }}</strong> vient de soumettre une nouvelle demande de congé :
+</p>
+
+<ul>
+    <li>Type : {{ conge.typeConge.nom }}</li>
+    <li>Du {{ conge.dateDebut|date('d/m/Y') }} au {{ conge.dateFin|date('d/m/Y') }}</li>
+    {% if conge.commentaire %}
+        <li>Commentaire : {{ conge.commentaire }}</li>
+    {% endif %}
+</ul>
+
+<p>
+    <a href="{{ url('responsable_repondre', {id: conge.id}) }}">Traiter cette demande</a>
+</p>

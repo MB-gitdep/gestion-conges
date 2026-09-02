@@ -1,0 +1,25 @@
+framework:
+    workflows:
+        conge:
+            type: state_machine
+            audit_trail:
+                enabled: true
+            marking_store:
+                type: method
+                property: statut
+            supports:
+                - App\Entity\Conge
+            initial_marking: en_attente
+            places:
+                - en_attente
+                - valide
+                - refuse
+            transitions:
+                valider:
+                    from: en_attente
+                    to: valide
+                    guard: "is_granted('CONGE_VALIDER', subject)"
+                refuser:
+                    from: en_attente
+                    to: refuse
+                    guard: "is_granted('CONGE_VALIDER', subject)"

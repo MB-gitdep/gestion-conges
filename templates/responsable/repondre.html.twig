@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+{% block title %}Répondre à la demande{% endblock %}
+{% block body %}
+<h1 class="h3 mb-3">Demande de {{ conge.utilisateur }}</h1>
+<dl class="row">
+    <dt class="col-sm-3">Type</dt><dd class="col-sm-9">{{ conge.typeConge.nom }}</dd>
+    <dt class="col-sm-3">Période</dt><dd class="col-sm-9">{{ conge.dateDebut|date('d/m/Y') }} — {{ conge.dateFin|date('d/m/Y') }}</dd>
+    {% if conge.commentaire %}
+        <dt class="col-sm-3">Commentaire du demandeur</dt><dd class="col-sm-9">{{ conge.commentaire }}</dd>
+    {% endif %}
+</dl>
+
+{{ form_start(form) }}
+    {{ form_row(form.decision) }}
+    {{ form_row(form.commentaire) }}
+    <button class="btn btn-primary" type="submit">Valider ma décision</button>
+{{ form_end(form) }}
+{% endblock %}
