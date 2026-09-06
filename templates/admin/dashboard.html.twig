@@ -27,7 +27,8 @@
         </div>
 
         <h2 class="h5">Demandes en attente</h2>
-        <table class="table">
+        <div class="table-responsive">
+<table class="table">
             <thead><tr><th>Demandeur</th><th>Type</th><th>Période</th></tr></thead>
             <tbody>
             {% for conge in demandesEnAttente %}
@@ -41,6 +42,7 @@
             {% endfor %}
             </tbody>
         </table>
+</div>
     </div>
 </div>
 {% endblock %}

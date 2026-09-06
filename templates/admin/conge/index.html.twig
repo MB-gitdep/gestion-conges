@@ -13,7 +13,8 @@
                 <a href="{{ path('admin_conge_index', {statut: 'refuse'}) }}" class="btn btn-outline-secondary {{ statutFiltre == 'refuse' ? 'active' }}">Refusées</a>
             </div>
         </div>
-        <table class="table">
+        <div class="table-responsive">
+<table class="table">
             <thead><tr><th>Demandeur</th><th>Type</th><th>Période</th><th>Statut</th><th></th></tr></thead>
             <tbody>
             {% for conge in conges %}
@@ -37,6 +38,7 @@
             {% endfor %}
             </tbody>
         </table>
+</div>
     </div>
 </div>
 {% endblock %}

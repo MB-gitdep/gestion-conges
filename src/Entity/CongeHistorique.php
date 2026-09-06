@@ -5,6 +5,12 @@ namespace App\Entity;
 use App\Repository\CongeHistoriqueRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Une ligne d'audit : une transition de statut sur une demande de
+ * congé (qui a décidé, ancien statut, nouveau statut, quand). Générée
+ * automatiquement par CongeNotificationSubscriber à chaque transition
+ * du workflow — jamais créée ou modifiée manuellement ailleurs.
+ */
 #[ORM\Entity(repositoryClass: CongeHistoriqueRepository::class)]
 class CongeHistorique
 {

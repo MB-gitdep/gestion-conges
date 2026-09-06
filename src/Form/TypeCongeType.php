@@ -10,6 +10,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
+/**
+ * Formulaire de paramétrage d'un type de congé (nom + nombre de
+ * jours par défaut), utilisé uniquement côté administration.
+ */
 class TypeCongeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void

@@ -5,6 +5,12 @@ namespace App\Entity;
 use App\Repository\SoldeCongeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Le nombre de jours restants pour un utilisateur, un type de congé
+ * et une année donnés. Volontairement annuel (pas de solde "glissant")
+ * pour permettre de gérer les reliquats reportés d'une année sur
+ * l'autre comme des lignes distinctes si besoin.
+ */
 #[ORM\Entity(repositoryClass: SoldeCongeRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_SOLDE_UTILISATEUR_TYPE_ANNEE', fields: ['utilisateur', 'typeConge', 'annee'])]
 class SoldeConge
