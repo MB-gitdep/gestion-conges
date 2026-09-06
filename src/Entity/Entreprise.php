@@ -7,6 +7,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Une entreprise cliente de l'application (support multi-tenant).
+ * Chaque service, et donc chaque utilisateur qui y est rattaché,
+ * appartient à une entreprise. Les jours fériés sont également
+ * définis par entreprise plutôt que par service, car ils sont en
+ * général valables pour toute la société (voire tout le pays).
+ */
 #[ORM\Entity(repositoryClass: EntrepriseRepository::class)]
 class Entreprise
 {

@@ -12,6 +12,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
+/**
+ * Formulaire d'ajout d'un jour férié au calendrier d'une entreprise,
+ * utilisé uniquement côté administration.
+ */
 class JourFerieType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void

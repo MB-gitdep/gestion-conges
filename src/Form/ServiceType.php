@@ -11,6 +11,11 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
+/**
+ * Formulaire de création/édition d'un service, utilisé uniquement
+ * côté administration (RH/Admin) — un employé ne peut jamais créer
+ * de service lui-même.
+ */
 class ServiceType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void

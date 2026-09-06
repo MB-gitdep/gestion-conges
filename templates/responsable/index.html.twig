@@ -2,6 +2,7 @@
 {% block title %}Demandes à traiter{% endblock %}
 {% block body %}
 <h1 class="h3 mb-3">Demandes en attente de mon équipe</h1>
+<div class="table-responsive">
 <table class="table">
     <thead><tr><th>Demandeur</th><th>Type</th><th>Période</th><th>Commentaire</th><th></th></tr></thead>
     <tbody>
@@ -18,4 +19,5 @@
     {% endfor %}
     </tbody>
 </table>
+</div>
 {% endblock %}

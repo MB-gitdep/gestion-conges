@@ -8,7 +8,8 @@
             <h1 class="h3">Jours fériés</h1>
             <a href="{{ path('admin_jour_ferie_new') }}" class="btn btn-primary">Ajouter un jour férié</a>
         </div>
-        <table class="table">
+        <div class="table-responsive">
+<table class="table">
             <thead><tr><th>Date</th><th>Libellé</th><th>Entreprise</th><th></th></tr></thead>
             <tbody>
             {% for jour in joursFeries %}
@@ -28,6 +29,7 @@
             {% endfor %}
             </tbody>
         </table>
+</div>
     </div>
 </div>
 {% endblock %}

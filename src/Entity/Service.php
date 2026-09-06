@@ -7,6 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Un service (département) au sein d'une entreprise, ex. "Commercial",
+ * "Technique". Un utilisateur peut appartenir à plusieurs services à
+ * la fois (voir UtilisateurService), et être responsable de certains
+ * d'entre eux sans l'être des autres.
+ */
 #[ORM\Entity(repositoryClass: ServiceRepository::class)]
 class Service
 {

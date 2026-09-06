@@ -7,6 +7,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Une demande de congé. Le champ "statut" est piloté par le workflow
+ * Symfony défini dans config/packages/workflow.yaml (jamais modifié
+ * à la main ailleurs) : en_attente → valide OU refuse. Chaque
+ * transition génère automatiquement une entrée dans CongeHistorique
+ * et un email au demandeur (voir CongeNotificationSubscriber).
+ */
 #[ORM\Entity(repositoryClass: CongeRepository::class)]
 class Conge
 {

@@ -10,6 +10,13 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
+/**
+ * Un utilisateur de l'application : employé, responsable, RH ou admin
+ * selon les rôles qui lui sont attribués (aucun rôle dédié séparé —
+ * c'est le champ "roles" qui détermine ce qu'il peut faire, combiné à
+ * la hiérarchie définie dans security.yaml). Sert aussi d'entité
+ * d'authentification Symfony (UserInterface).
+ */
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
 #[ORM\Table(name: '`utilisateur`')]
 #[ORM\UniqueConstraint(name: 'UNIQ_EMAIL', fields: ['email'])]
@@ -51,6 +58,10 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 20)]
     private string $statut = self::STATUT_ACTIF;
 
+    // Vrai tant que l'utilisateur n'a pas remplacé son mot de passe
+    // temporaire (attribué par un admin) par un mot de passe de son
+    // choix — voir ForcerChangementMotDePasseSubscriber, qui bloque
+    // l'accès à toute autre page tant que ce flag est vrai.
     #[ORM\Column]
     private bool $doitChangerMotDePasse = true;
 

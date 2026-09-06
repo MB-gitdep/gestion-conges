@@ -5,6 +5,11 @@ namespace App\Entity;
 use App\Repository\JourFerieRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Un jour férié, rattaché à une entreprise (et non à un service) car
+ * il s'applique en général à toute la société. Utilisé pour calculer
+ * les jours ouvrés réellement décomptés lors d'une demande de congé.
+ */
 #[ORM\Entity(repositoryClass: JourFerieRepository::class)]
 class JourFerie
 {
