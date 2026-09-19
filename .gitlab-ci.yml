@@ -1,0 +1,52 @@
+# Pipeline CI/CD GitLab — gestion-conges
+# Lance automatiquement les tests et l'audit de sécurité à chaque push.
+
+stages:
+  - qualite
+  - test
+
+variables:
+  MYSQL_DATABASE: gestion_conges_test
+  MYSQL_ROOT_PASSWORD: root
+  DATABASE_URL: "mysql://root:root@mariadb:3306/gestion_conges_test?serverVersion=11.4-MariaDB&charset=utf8mb4"
+
+# Réutilisé par plusieurs jobs : installe les dépendances une seule fois
+.installation: &installation
+  image: php:8.4-cli
+  before_script:
+    - apt-get update -yqq
+    - apt-get install -yqq git unzip libicu-dev libzip-dev
+    - docker-php-ext-install intl pdo_mysql zip
+    - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+    - composer install --no-progress --prefer-dist
+  cache:
+    key: composer-$CI_COMMIT_REF_SLUG
+    paths:
+      - vendor/
+      - .composer-cache/
+
+# Vérifie qu'aucune dépendance installée n'a de faille de sécurité connue
+audit_composer:
+  <<: *installation
+  stage: qualite
+  script:
+    - composer audit
+  allow_failure: false   # un pipeline avec une faille connue ne doit pas passer au vert
+
+# Lance la suite PHPUnit complète contre une vraie base MariaDB de test
+tests_phpunit:
+  <<: *installation
+  stage: test
+  services:
+    - name: mariadb:11.4
+      alias: mariadb
+  script:
+    - cp .env .env.test.local
+    - echo "DATABASE_URL=$DATABASE_URL" >> .env.test.local
+    - php bin/console doctrine:schema:create --env=test
+    - php bin/phpunit --colors=never
+  artifacts:
+    when: always
+    reports:
+      junit: var/log/phpunit-report.xml
+    expire_in: 1 week
