@@ -24,6 +24,10 @@
                     <td>
                         <a href="{{ path('admin_utilisateur_edit', {id: utilisateur.id}) }}">Modifier</a>
                         <a href="{{ path('admin_utilisateur_services', {id: utilisateur.id}) }}" class="ms-2">Services</a>
+						<form method="post" action="{{ path('admin_utilisateur_delete', {id: utilisateur.id}) }}" class="d-inline" onsubmit="return confirm('Supprimer cet utilisateur ?')">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ utilisateur.id) }}">
+    <button class="btn btn-link text-danger p-0 ms-2" type="submit">Supprimer</button>
+</form>
                     </td>
                 </tr>
             {% else %}
