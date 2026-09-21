@@ -118,4 +118,24 @@ class UtilisateurAdminController extends AbstractController
 
         return $this->redirectToRoute('admin_utilisateur_services', ['id' => $utilisateurId]);
     }
+	#[Route('/{id}/supprimer', name: 'admin_utilisateur_delete', methods: ['POST'])]
+    #[IsGranted('UTILISATEUR_GERER_DROITS', subject: 'utilisateur')]
+    public function delete(Utilisateur $utilisateur, Request $request, EntityManagerInterface $em): Response
+    {
+        // Un admin ne peut pas se supprimer lui-même (évite de se retrouver
+        // sans accès admin par erreur de clic)
+        if ($utilisateur === $this->getUser()) {
+            $this->addFlash('error', 'Vous ne pouvez pas supprimer votre propre compte.');
+
+            return $this->redirectToRoute('admin_utilisateur_index');
+        }
+
+        if ($this->isCsrfTokenValid('delete' . $utilisateur->getId(), $request->request->get('_token'))) {
+            $em->remove($utilisateur);
+            $em->flush();
+            $this->addFlash('success', 'Utilisateur supprimé.');
+        }
+
+        return $this->redirectToRoute('admin_utilisateur_index');
+    }
 }
