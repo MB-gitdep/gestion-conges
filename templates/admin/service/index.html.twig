@@ -15,13 +15,15 @@
                 <tr>
                     <td>{{ service.nom }}</td>
                     <td>{{ service.entreprise }}</td>
-                    <td>
-                        <a href="{{ path('admin_service_edit', {id: service.id}) }}">Modifier</a>
-                        <form method="post" action="{{ path('admin_service_delete', {id: service.id}) }}" class="d-inline" onsubmit="return confirm('Supprimer ce service ?')">
-                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ service.id) }}">
-                            <button class="btn btn-link text-danger p-0 ms-2" type="submit">Supprimer</button>
-                        </form>
-                    </td>
+					<td>
+						<div class="actions">
+							<a href="{{ path('admin_service_edit', {id: service.id}) }}" class="btn btn-sm btn-outline-primary">Modifier</a>
+							<form method="post" action="{{ path('admin_service_delete', {id: service.id}) }}" onsubmit="return confirm('Supprimer ce service ?')">
+								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ service.id) }}">
+								<button class="btn btn-sm btn-outline-danger" type="submit">Supprimer</button>
+							</form>
+						</div>
+					</td>
                 </tr>
             {% else %}
                 <tr><td colspan="3" class="text-muted">Aucun service.</td></tr>

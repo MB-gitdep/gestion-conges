@@ -1,6 +1,11 @@
 twig:
     file_name_pattern: '*.twig'
-
+    default_path: '%kernel.project_dir%/templates'
+    # Applique automatiquement le rendu Bootstrap 5 à TOUS les formulaires
+    # de l'application (form_row, form_widget...) sans rien changer aux
+    # templates existants — labels, espacement, cases à cocher/radios
+    # correctement alignés, tout est géré par ce thème fourni avec Symfony.
+    form_themes: ['bootstrap_5_layout.html.twig']
 when@test:
     twig:
         strict_variables: true
