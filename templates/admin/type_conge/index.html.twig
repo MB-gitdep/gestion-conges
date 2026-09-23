@@ -16,13 +16,15 @@
                 <tr>
                     <td>{{ type.nom }}</td>
                     <td>{{ type.joursDefaut ?? '—' }}</td>
-                    <td>
-                        <a href="{{ path('admin_type_conge_edit', {id: type.id}) }}">Modifier</a>
-                        <form method="post" action="{{ path('admin_type_conge_delete', {id: type.id}) }}" class="d-inline" onsubmit="return confirm('Supprimer ce type ?')">
-                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ type.id) }}">
-                            <button class="btn btn-link text-danger p-0 ms-2" type="submit">Supprimer</button>
-                        </form>
-                    </td>
+					<td>
+						<div class="actions">
+							<a href="{{ path('admin_type_conge_edit', {id: type.id}) }}" class="btn btn-sm btn-outline-primary">Modifier</a>
+							<form method="post" action="{{ path('admin_type_conge_delete', {id: type.id}) }}" onsubmit="return confirm('Supprimer ce type ?')">
+								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ type.id) }}">
+								<button class="btn btn-sm btn-outline-danger" type="submit">Supprimer</button>
+							</form>
+						</div>
+					</td>
                 </tr>
             {% else %}
                 <tr><td colspan="3" class="text-muted">Aucun type.</td></tr>
