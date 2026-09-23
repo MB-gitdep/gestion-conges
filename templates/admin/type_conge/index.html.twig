@@ -8,7 +8,8 @@
             <h1 class="h3">Types de congés</h1>
             <a href="{{ path('admin_type_conge_new') }}" class="btn btn-primary">Nouveau type</a>
         </div>
-        <table class="table">
+        <div class="table-responsive">
+<table class="table">
             <thead><tr><th>Nom</th><th>Jours par défaut</th><th></th></tr></thead>
             <tbody>
             {% for type in types %}
@@ -30,6 +31,7 @@
             {% endfor %}
             </tbody>
         </table>
+</div>
     </div>
 </div>
 {% endblock %}

@@ -7,6 +7,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Un type de congé paramétrable par l'admin (ex. "Congés payés", "RTT",
+ * "Congé sans solde"). Le champ joursDefaut sert de référence pour
+ * initialiser les soldes annuels, mais n'a aucun effet automatique —
+ * c'est bien SoldeConge qui fait foi pour savoir combien de jours
+ * il reste réellement à un utilisateur donné.
+ */
 #[ORM\Entity(repositoryClass: TypeCongeRepository::class)]
 class TypeConge
 {

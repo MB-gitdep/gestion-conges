@@ -5,6 +5,13 @@ namespace App\Entity;
 use App\Repository\UtilisateurServiceRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Table de liaison explicite entre un utilisateur et un service —
+ * volontairement une entité à part entière (et non une simple relation
+ * ManyToMany) car elle porte une donnée métier : estResponsable. C'est
+ * ce champ qui détermine si cet utilisateur peut valider les demandes
+ * de congé des autres membres de ce service précis.
+ */
 #[ORM\Entity(repositoryClass: UtilisateurServiceRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_UTILISATEUR_SERVICE', fields: ['utilisateur', 'service'])]
 class UtilisateurService

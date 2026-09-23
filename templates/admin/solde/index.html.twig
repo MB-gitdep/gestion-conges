@@ -8,7 +8,8 @@
             <h1 class="h3">Soldes de congés</h1>
             <a href="{{ path('admin_solde_new') }}" class="btn btn-primary">Nouveau solde</a>
         </div>
-        <table class="table">
+        <div class="table-responsive">
+<table class="table">
             <thead><tr><th>Utilisateur</th><th>Type</th><th>Année</th><th>Jours restants</th><th></th></tr></thead>
             <tbody>
             {% for solde in soldes %}
@@ -24,6 +25,7 @@
             {% endfor %}
             </tbody>
         </table>
+</div>
     </div>
 </div>
 {% endblock %}
